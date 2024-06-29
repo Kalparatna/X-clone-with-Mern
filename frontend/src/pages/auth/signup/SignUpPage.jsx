@@ -11,6 +11,8 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
+	document.title = "X / Sign up";
+
 	const [formData, setFormData] = useState({
 		email: "",
 		username: "",

@@ -27,11 +27,12 @@ const ProfilePage = () => {
 	const profileImgRef = useRef(null);
 
 	const { username } = useParams();
+	document.title = "X / " + username + " - " + "Profile";
 
 	const { follow, isPending } = useFollow();
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
-	const {data: user, isLoading, refetch, isRefetching} = useQuery({
+	const { data: user, isLoading, refetch, isRefetching } = useQuery({
 		queryKey: ["userProfile"],
 		queryFn: async () => {
 			try {
@@ -139,7 +140,7 @@ const ProfilePage = () => {
 										className='btn btn-outline rounded-full btn-sm'
 										onClick={() => follow(user?._id)}
 									>
-										{isPending && <LoadingSpinner/>}
+										{isPending && <LoadingSpinner />}
 										{!isPending && amIFollowing && "Unfollow"}
 										{!isPending && !amIFollowing && "Follow"}
 									</button>
