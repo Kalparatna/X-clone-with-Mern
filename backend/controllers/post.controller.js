@@ -227,3 +227,14 @@ export const getUserPosts = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+export const getTotalPosts = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const totalPosts = await Post.countDocuments({ user: userId });
+		res.status(200).json(totalPosts);
+	} catch (error) {
+		console.log("Error in getTotalPosts controller: ", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};

@@ -5,8 +5,6 @@ import Posts from "../../components/common/Posts";
 import ProfileHeaderSkeleton from "../../components/skeletons/ProfileHeaderSkeleton";
 import EditProfileModal from "./EditProfileModal";
 
-import { POSTS } from "../../utils/db/dummy";
-
 import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
@@ -17,11 +15,13 @@ import { formatMemberSinceDate } from "../../utils/date";
 import useFollow from "../../hooks/useFollow";
 import useUpdateUserProfile from "../../hooks/useUpdateUserProfile";
 import LoadingSpinner from "../../components/common/LoadingSpinner";
+import useGetTotalPosts from "../../hooks/useGetTotalPosts";
 
 const ProfilePage = () => {
 	const [coverImg, setCoverImg] = useState(null);
 	const [profileImg, setProfileImg] = useState(null);
 	const [feedType, setFeedType] = useState("posts");
+	const [totalPosts, setTotalPosts] = useState(0);
 
 	const coverImgRef = useRef(null);
 	const profileImgRef = useRef(null);
@@ -30,6 +30,8 @@ const ProfilePage = () => {
 	document.title = "X / " + username + " - " + "Profile";
 
 	const { follow, isPending } = useFollow();
+	const { getTotalPosts, isGettingTotalPosts } = useGetTotalPosts();
+
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
 	const { data: user, isLoading, refetch, isRefetching } = useQuery({
@@ -48,6 +50,7 @@ const ProfilePage = () => {
 		},
 	});
 
+	// console.log(user)
 	const { isUpdatingProfile, updateProfile } = useUpdateUserProfile();
 
 	const isMyProfile = authUser._id === user?._id;
@@ -70,6 +73,14 @@ const ProfilePage = () => {
 		refetch();
 	}, [username, refetch]);
 
+	useEffect(() => {
+		(async () => {
+			if (user?._id) {
+				setTotalPosts(await getTotalPosts(user?._id));
+			}
+		})();
+	}, [getTotalPosts, user?._id, user]);
+
 	return (
 		<>
 			<div className='flex-[4_4_0]  border-r border-gray-700 min-h-screen '>
@@ -85,7 +96,7 @@ const ProfilePage = () => {
 								</Link>
 								<div className='flex flex-col'>
 									<p className='font-bold text-lg'>{user?.fullName}</p>
-									<span className='text-sm text-slate-500'>{POSTS?.length} posts</span>
+									{isGettingTotalPosts ? <LoadingSpinner /> : <span className='text-sm text-slate-500'>{totalPosts} {totalPosts === 1 ? 'post' : 'posts'}</span>}
 								</div>
 							</div>
 							{/* COVER IMG */}
@@ -168,11 +179,15 @@ const ProfilePage = () => {
 
 								<div className='flex gap-2 flex-wrap'>
 									{user?.link && (
-										<div className='flex gap-1 items-center '>
+										<div className='flex gap-1 items-center'>
 											<>
 												<FaLink className='w-3 h-3 text-slate-500' />
 												<a
-													href={user?.link}
+													href={
+														user?.link.startsWith('http://') || user?.link.startsWith('https://')
+															? user?.link
+															: `http://${user?.link}`
+													}
 													target='_blank'
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'

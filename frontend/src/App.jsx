@@ -24,7 +24,7 @@ function App() {
 				if(!res.ok){
 					throw new Error(data.error || "Something went wrong")
 				}
-				console.log("Auth user: ",data)
+				// console.log("Auth user: ",data)
 				return data
 			} catch (error) {
 				throw new Error(error)
