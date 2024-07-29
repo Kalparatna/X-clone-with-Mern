@@ -8,6 +8,8 @@ Full-stack twitter clone using MERN stack, tanstack query (react query), tailwin
 
 https://x.com/53Priyanshu/status/1815385964036124695
 
+P.S.: I had deployed it on render.com, but as it's a clone, my deployment was suspended by render, now I can't deploy it on any other platform as well as it'd be a trademark violation and will eventually get me banned on that platform.
+
 ## Run Locally
 
 Clone the project
