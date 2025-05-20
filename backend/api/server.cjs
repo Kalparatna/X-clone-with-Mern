@@ -43,6 +43,8 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/notifications', notificationRoutes)
+// Ignore favicon requests
+app.get('/favicon.ico', (req, res) => res.status(204).end())
 
 module.exports.handler = serverless(async (req, res) => {
   try {
