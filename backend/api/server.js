@@ -1,48 +1,45 @@
-import path from 'path'
 import express from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import { v2 as cloudinary } from 'cloudinary'
+import serverless from 'serverless-http'
 
-import authRoutes from './routes/auth.route.js'
-import userRoutes from './routes/user.route.js'
-import postRoutes from './routes/post.route.js'
-import notificationRoutes from './routes/notification.route.js'
-
-import connectDB from './db/connectDB.js'
+import authRoutes from '../routes/auth.route.js'
+import userRoutes from '../routes/user.route.js'
+import postRoutes from '../routes/post.route.js'
+import notificationRoutes from '../routes/notification.route.js'
+import connectDB from '../db/connectDB.js'
 
 dotenv.config()
 
+const app = express()
+
+// Connect DB
+connectDB()
+
+// Cloudinary config
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-const app = express()
-const PORT = process.env.PORT || 5000
-const __dirname = path.resolve()
-
-app.use(express.json({ limit: '5mb' }))// to parse req.body
-// limit shouldn't be too high to prevent DOS
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-
+// Middleware
+app.use(cors({
+  origin: ['https://frontendurl.app', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}))
+app.use(express.json({ limit: '5mb' }))
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-app.use("/api/auth", authRoutes)
-app.use("/api/users", userRoutes)
-app.use("/api/posts", postRoutes)
-app.use("/api/notifications", notificationRoutes)
+// Routes
+app.use('/api/auth', authRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/posts', postRoutes)
+app.use('/api/notifications', notificationRoutes)
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/frontend/dist')))
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-    })
-}
-
-app.listen(PORT, () => {
-    connectDB()
-    console.log(`Server listening on port ${PORT}`)
-})
+// Export serverless handler
+export const handler = serverless(app)
