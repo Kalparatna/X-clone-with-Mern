@@ -27,7 +27,7 @@ const ProfilePage = () => {
 	const profileImgRef = useRef(null);
 
 	const { username } = useParams();
-	document.title = "X / " + username + " - " + "Profile";
+	document.title = "X clone/ " + username + " - " + "Profile";
 
 	const { follow, isPending } = useFollow();
 	const { getTotalPosts, isGettingTotalPosts } = useGetTotalPosts();

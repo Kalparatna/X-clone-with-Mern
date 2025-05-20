@@ -9,7 +9,7 @@ import { FaUser } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa6";
 
 const NotificationPage = () => {
-	document.title = "X / Notifications";
+	document.title = "X clone/ Notifications";
 
 	const queryClient = useQueryClient();
 	const { data: notifications, isLoading } = useQuery({

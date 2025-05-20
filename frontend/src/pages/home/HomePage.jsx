@@ -4,7 +4,7 @@ import Posts from "../../components/common/Posts";
 import CreatePost from "./CreatePost";
 
 const HomePage = () => {
-	document.title = "X / Home";
+	document.title = "X clone / Home";
 
 	const [feedType, setFeedType] = useState("forYou");
 

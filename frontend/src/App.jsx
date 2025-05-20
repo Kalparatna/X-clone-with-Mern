@@ -4,6 +4,12 @@ import LoginPage from "./pages/auth/login/LoginPage";
 import HomePage from "./pages/home/HomePage"
 import NotificationPage from "./pages/notification/NotificationPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import PremiumPage from "./pages/premium/PremiumPage";
+import ExplorePage from "./pages/explore/ExplorePage";
+import MessagesPage from "./pages/message/MessagesPage";
+import CommunitiesPage from "./pages/communities/CommunitiesPage";
+import ListsPage from "./pages/lists/ListsPage";
+import BookmarksPage from "./pages/bookmarks/BookmarksPage";
 
 import Sidebar from "./components/common/Sidebar";
 import RightPanel from "./components/common/RightPanel";
@@ -45,6 +51,13 @@ function App() {
 				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to={'/'}/>} />
 				<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to={'/login'}/>} />
 				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to={'/login'}/>} />
+				<Route path='/premium' element={authUser ? <PremiumPage/> : <Navigate to={'/login'}/>} />
+				<Route path='/explore' element={authUser ? <ExplorePage/> : <Navigate to={'/login'}/>} />  
+				<Route path='/messages' element={authUser ? <MessagesPage/> : <Navigate to={'/login'}/>} /> 
+				<Route path='/communities' element={authUser ? <CommunitiesPage/> : <Navigate to={'/login'}/>} /> 
+				<Route path='/lists' element={authUser ? <ListsPage/> : <Navigate to={'/login'}/>} /> 
+				<Route path='/bookmarks' element={authUser ? <BookmarksPage/> : <Navigate to={'/login'}/>} /> 
+
 			</Routes>
 			{authUser && <RightPanel/>}
 			<Toaster/>

@@ -8,7 +8,7 @@ import { MdPassword } from "react-icons/md";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const LoginPage = () => {
-	document.title = "X / Sign in";
+	document.title = "X clone/ Sign in";
 
 	const [formData, setFormData] = useState({
 		username: "",
