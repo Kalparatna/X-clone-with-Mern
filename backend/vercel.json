@@ -9,8 +9,8 @@
       "dest": "api/server.cjs"
     },
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/api/(.*)",
+      "dest": "/server.cjs"
     }
   ]
 }
