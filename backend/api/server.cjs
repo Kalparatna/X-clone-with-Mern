@@ -1,21 +1,20 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
-import { v2 as cloudinary } from 'cloudinary'
-import serverless from 'serverless-http'
+const express = require('express')
+const dotenv = require('dotenv')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+const cloudinary = require('cloudinary').v2
+const serverless = require('serverless-http')
+const connectDB = require('../db/connectDB')
 
-import connectDB from '../db/connectDB.js'
-import authRoutes from '../routes/auth.route.js'
-import userRoutes from '../routes/user.route.js'
-import postRoutes from '../routes/post.route.js'
-import notificationRoutes from '../routes/notification.route.js'
+const authRoutes = require('../routes/auth.route')
+const userRoutes = require('../routes/user.route')
+const postRoutes = require('../routes/post.route')
+const notificationRoutes = require('../routes/notification.route')
 
 dotenv.config()
 
 const app = express()
 
-// Connect to DB
 let isConnected = false
 const connectToDB = async () => {
   if (!isConnected) {
@@ -45,7 +44,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/notifications', notificationRoutes)
 
-export const handler = serverless(async (req, res) => {
+module.exports.handler = serverless(async (req, res) => {
   try {
     await connectToDB()
     return app(req, res)
