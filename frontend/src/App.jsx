@@ -43,7 +43,10 @@ function App() {
 		return <div className="h-screen flex justify-center items-center"><LoadingSpinner size='lg'/></div>
 	
 	return (
-		<div className='flex max-w-6xl mx-auto'>
+		<div
+    data-theme="black"
+    className="min-h-screen bg-base-100 text-base-content flex max-w-6xl mx-auto"
+  >
 			{authUser && <Sidebar/>}
 			<Routes>
 				<Route path='/' element={authUser ? <HomePage /> : <Navigate to={'/login'}/>} />	
