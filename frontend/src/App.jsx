@@ -24,7 +24,7 @@ function App() {
 		queryKey: ['authUser'],
 		queryFn: async() => {
 			try {
-				const res = await fetch("https://x-clone-backend-h8jvrmx78-kalparatnas-projects.vercel.app/api/auth/me")
+				const res = await fetch("https://x-clone-backend-pi.vercel.app/api/auth/me")
 				const data = await res.json()
 				if(data.error) return null
 				if(!res.ok){
