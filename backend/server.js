@@ -13,6 +13,17 @@ import connectDB from './db/connectDB.js'
 
 dotenv.config()
 
+
+import cors from 'cors'
+
+// Add this before your routes
+app.use(cors({
+  origin: ['http://localhost:5173', 'https://x-clone-with-mern.vercel.app'], 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}))
+
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
