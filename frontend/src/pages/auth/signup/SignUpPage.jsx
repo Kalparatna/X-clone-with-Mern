@@ -23,7 +23,7 @@ const SignUpPage = () => {
 	const { mutate: signup, isError, isPending, error } = useMutation({
 		mutationFn: async ({ email, username, password, fullName }) => {
 			try {
-				const res = await fetch('/api/auth/signup', {
+				const res = await fetch('https://your-backend.vercel.app/api/auth/signup', {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
