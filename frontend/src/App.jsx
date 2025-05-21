@@ -45,7 +45,7 @@ function App() {
 	return (
 		<div
     data-theme="black"
-    className="min-h-screen bg-base-100 text-base-content flex max-w-6xl mx-auto"
+    className="min-h-screen bg-black text-base-content flex max-w-6xl mx-auto"
   >
 			{authUser && <Sidebar/>}
 			<Routes>
