@@ -17,9 +17,10 @@ const app = express()
 connectDB()
 
 app.use(cors({
-  origin: ['*'],
+  origin: 'https://x-clone-with-mern.vercel.app', // your frontend URL
   credentials: true
 }))
+
 app.use(express.json())
 app.use(cookieParser())
 
