@@ -20,7 +20,7 @@ const LoginPage = () => {
 	const { mutate: login, isPending, isError, error } = useMutation({
 		mutationFn: async ({ username, password }) => {
 			try {
-				const res = await fetch("https://x-clone-backend-h8jvrmx78-kalparatnas-projects.vercel.app/api/auth/login", {
+				const res = await fetch("https://x-clone-backend-pi.vercel.app/api/auth/login", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
