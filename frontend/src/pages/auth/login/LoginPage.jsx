@@ -21,12 +21,14 @@ const LoginPage = () => {
 		mutationFn: async ({ username, password }) => {
 			try {
 				const res = await fetch("https://x-clone-backend-pi.vercel.app/api/auth/login", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ username, password }),
-				})
+				  method: "POST",
+				  credentials: "include", // <--- ADD THIS TO SEND/RECEIVE COOKIES
+				  headers: {
+				    "Content-Type": "application/json",
+				  },
+				  body: JSON.stringify({ username, password }),
+				});
+
 				const data = await res.json();
 				if (!res.ok) throw new Error(data.error || "Failed to login");
 			} catch (error) {
