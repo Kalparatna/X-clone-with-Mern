@@ -17,7 +17,7 @@ const app = express()
 connectDB()
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://x-clone-with-mern.vercel.app'],
+  origin: ['*'],
   credentials: true
 }))
 app.use(express.json())
