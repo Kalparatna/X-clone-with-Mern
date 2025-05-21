@@ -35,7 +35,7 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/notifications', notificationRoutes)
 
-app.all('*', (req, res) => {
+app.all('/', (req, res) => {
   res.status(404).json({ error: 'Route not found' })
 })
 
