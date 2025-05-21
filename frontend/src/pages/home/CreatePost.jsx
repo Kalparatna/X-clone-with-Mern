@@ -21,7 +21,7 @@ const CreatePost = () => {
 	} = useMutation({
 		mutationFn: async ({ text, img }) => {
 			try {
-				const res = await fetch("/api/posts/create", {
+				const res = await fetch("https://your-backend.vercel.app/api/posts/create", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
